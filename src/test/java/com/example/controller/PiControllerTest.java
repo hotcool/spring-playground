@@ -1,5 +1,6 @@
-package com.example;
+package com.example.controller;
 
+import com.example.controller.PiController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

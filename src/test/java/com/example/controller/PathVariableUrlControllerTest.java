@@ -1,4 +1,4 @@
-package com.example;
+package com.example.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,8 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(PathVariableUrl.class)
-public class PathVariableUrlTest {
+@WebMvcTest(PathVariableUrlController.class)
+public class PathVariableUrlControllerTest {
 
     @Autowired
     private MockMvc mvc;
