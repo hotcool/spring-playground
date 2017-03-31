@@ -33,6 +33,6 @@ public class MathServiceTest {
         valueMap.add("q", "6");
 
         assertEquals("Error! Invalid input integer!", service.sum(null));
-        assertEquals("15", service.sum(valueMap));
+        assertEquals("2 + 5 + 8 = 15", service.sum(valueMap));
     }
 }

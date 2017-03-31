@@ -69,11 +69,11 @@ public class MathControllerTest {
         //multi paras
         mvc.perform(post("/math/sum?n=4&n=5").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
-                .andExpect(content().string("9"));
+                .andExpect(content().string("4 + 5 = 9"));
         //one more
         mvc.perform(post("/math/sum?n=4&n=5&n=6").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
-                .andExpect(content().string("15"));
+                .andExpect(content().string("4 + 5 + 6 = 15"));
         //more variable names
         mvc.perform(post("/math/sum?n=4&p=5&q=6").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
@@ -85,7 +85,7 @@ public class MathControllerTest {
         //more variable names with multiple ns
         mvc.perform(post("/math/sum?n=4&n=6&p=5&q=6").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
-                .andExpect(content().string("10"));
+                .andExpect(content().string("4 + 6 = 10"));
 
     }
 

@@ -4,6 +4,7 @@ import com.sun.javafx.binding.StringFormatter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,26 +15,26 @@ public class MathService {
         int result;
         String format = null;
         if (null == operation) {
-            result = x + y ;
+            result = x + y;
             format = StringFormatter.format("%d + %d = %d", x, y, result).getValue();
             return format;
         }
 
         switch (operation) {
             case "add":
-                result = x + y ;
+                result = x + y;
                 format = StringFormatter.format("%d + %d = %d", x, y, result).getValue();
                 break;
             case "subtract":
-                result = x - y ;
+                result = x - y;
                 format = StringFormatter.format("%d - %d = %d", x, y, result).getValue();
                 break;
             case "multiply":
-                result = x * y ;
+                result = x * y;
                 format = StringFormatter.format("%d * %d = %d", x, y, result).getValue();
                 break;
             case "divide":
-                result = x / y ;
+                result = x / y;
                 format = StringFormatter.format("%d / %d = %d", x, y, result).getValue();
                 break;
             default:
@@ -46,6 +47,7 @@ public class MathService {
     public String sum(MultiValueMap<String, String> valueMap) {
         String result;
 
+        //work around for a bug in MultiValueMap. If you declare a MultiValueMap<String, Integer>, it can contain value of List<String> rather than List<Integer>
         List<String> values = null;
         List<String> formattedValues = null;
         List<Integer> integers = null;
@@ -61,6 +63,22 @@ public class MathService {
         } else {
             result = "Error! Invalid input integer!";
         }
+
+        //format the result
+        //multiple ns
+        if (null != integers && integers.size() > 1) {
+            Iterator<Integer> iterator = integers.iterator();
+            StringBuilder sb = new StringBuilder();
+            while (iterator.hasNext()) {
+                Integer currentInt = iterator.next();
+                if (null != currentInt) {
+                    sb.append(currentInt + " + ");
+                }
+            }
+            sb.setLength(sb.length() - 2);
+            result = sb.append("= " + result).toString();
+        }
+        //single n, I do not know. Put "4 = 4"? or just "4"?
         return result;
     }
 
