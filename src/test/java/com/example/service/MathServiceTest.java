@@ -12,11 +12,11 @@ public class MathServiceTest {
 
     @Test
     public void testCal() {
-        assertEquals("35", service.calculateOperation(null, 5, 30));
-        assertEquals("10", service.calculateOperation("add", 4, 6));
-        assertEquals("-2", service.calculateOperation("subtract", 4, 6));
-        assertEquals("24", service.calculateOperation("multiply", 4, 6));
-        assertEquals("6", service.calculateOperation("divide", 30, 5));
+        assertEquals("30 + 5 = 35", service.calculateOperation(null, 30, 5));
+        assertEquals("4 + 6 = 10", service.calculateOperation("add", 4, 6));
+        assertEquals("4 - 6 = -2", service.calculateOperation("subtract", 4, 6));
+        assertEquals("4 * 6 = 24", service.calculateOperation("multiply", 4, 6));
+        assertEquals("30 / 5 = 6", service.calculateOperation("divide", 30, 5));
         assertEquals("Error! Invalid input operation! Please use add, subtract, multiply, and divide!", service.calculateOperation("", 5, 30));
         assertEquals("Error! Invalid input operation! Please use add, subtract, multiply, and divide!", service.calculateOperation("mod", 5, 30));
     }

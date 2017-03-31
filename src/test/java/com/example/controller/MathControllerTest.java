@@ -25,26 +25,26 @@ public class MathControllerTest {
         //null
         mvc.perform(get("/math/calculate?x=30&y=5").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
-                .andExpect(content().string("35"));
+                .andExpect(content().string("30 + 5 = 35"));
         //incorrect input
         mvc.perform(get("/math/calculate?x=\"30\"&y=5").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isBadRequest());
         //add
         mvc.perform(get("/math/calculate?operation=add&x=4&y=6").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
-                .andExpect(content().string("10"));
+                .andExpect(content().string("4 + 6 = 10"));
         //subtract
         mvc.perform(get("/math/calculate?operation=subtract&x=4&y=6").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
-                .andExpect(content().string("-2"));
+                .andExpect(content().string("4 - 6 = -2"));
         //multiple
         mvc.perform(get("/math/calculate?operation=multiply&x=4&y=6").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
-                .andExpect(content().string("24"));
+                .andExpect(content().string("4 * 6 = 24"));
         //divide
         mvc.perform(get("/math/calculate?operation=divide&x=30&y=5").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
-                .andExpect(content().string("6"));
+                .andExpect(content().string("30 / 5 = 6"));
         //empty
         mvc.perform(get("/math/calculate?operation=&x=30&y=5").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())

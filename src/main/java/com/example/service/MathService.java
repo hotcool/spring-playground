@@ -11,29 +11,36 @@ import java.util.stream.Collectors;
 public class MathService {
 
     public String calculateOperation(String operation, int x, int y) {
-        String result;
+        int result;
+        String format = null;
         if (null == operation) {
-            return x + y + "";
+            result = x + y ;
+            format = StringFormatter.format("%d + %d = %d", x, y, result).getValue();
+            return format;
         }
 
         switch (operation) {
             case "add":
-                result = x + y + "";
+                result = x + y ;
+                format = StringFormatter.format("%d + %d = %d", x, y, result).getValue();
                 break;
             case "subtract":
-                result = x - y + "";
+                result = x - y ;
+                format = StringFormatter.format("%d - %d = %d", x, y, result).getValue();
                 break;
             case "multiply":
-                result = x * y + "";
+                result = x * y ;
+                format = StringFormatter.format("%d * %d = %d", x, y, result).getValue();
                 break;
             case "divide":
-                result = x / y + "";
+                result = x / y ;
+                format = StringFormatter.format("%d / %d = %d", x, y, result).getValue();
                 break;
             default:
-                result = "Error! Invalid input operation! Please use add, subtract, multiply, and divide!";
+                format = "Error! Invalid input operation! Please use add, subtract, multiply, and divide!";
                 break;
         }
-        return result;
+        return format;
     }
 
     public String sum(MultiValueMap<String, String> valueMap) {
