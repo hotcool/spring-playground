@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.ClosedLineSegments;
 import org.junit.Test;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -34,5 +35,29 @@ public class MathServiceTest {
 
         assertEquals("Error! Invalid input integer!", service.sum(null));
         assertEquals("2 + 5 + 8 = 15", service.sum(valueMap));
+    }
+
+    @Test
+    public void testArea(){
+        ClosedLineSegments closedLineSegments = new ClosedLineSegments("circle", 8,0,0);
+
+        assertEquals("Error! Incorrect input parameters. This endpoint only takes in type(circle, rectangle), radius, width and height!", service.getAreaResult(null));
+        assertEquals("Area of a circle with a radius of 8 is 201.06193", service.getAreaResult(closedLineSegments));
+
+        closedLineSegments.setRadius(0);
+        closedLineSegments.setWidth(2);
+        assertEquals("Invalid", service.getAreaResult(closedLineSegments));
+
+        closedLineSegments.setType("square");
+        assertEquals("Error! Incorrect input type. This endpoint only accepts circle / rectangle.", service.getAreaResult(closedLineSegments));
+
+        closedLineSegments.setType("rectangle");
+        closedLineSegments.setRadius(2);
+        closedLineSegments.setWidth(0);
+        assertEquals("Invalid", service.getAreaResult(closedLineSegments));
+
+        closedLineSegments.setWidth(5);
+        closedLineSegments.setHeight(7);
+        assertEquals("Area of a 5x7 rectangle is 35", service.getAreaResult(closedLineSegments));
     }
 }

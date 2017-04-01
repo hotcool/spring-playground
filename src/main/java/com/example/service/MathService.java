@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.model.ClosedLineSegments;
+import com.example.util.MathConstants;
 import com.sun.javafx.binding.StringFormatter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -79,6 +81,40 @@ public class MathService {
             result = sb.append("= " + result).toString();
         }
         //single n, I do not know. Put "4 = 4"? or just "4"?
+        return result;
+    }
+
+    public String getAreaResult(ClosedLineSegments closedLineSegments) {
+        String result;
+        if (null == closedLineSegments) {
+            result = "Error! Incorrect input parameters. This endpoint only takes in type(circle, rectangle), radius, width and height!";
+            return result;
+        }
+
+        if(null == closedLineSegments.getType()){
+            result = "Error! Incorrect input parameters. This endpoint only takes in type(circle, rectangle), radius, width and height!";
+            return result;
+        }
+
+        if (closedLineSegments.getType().equals(MathConstants.TYPE.circle.toString())) {
+            if (closedLineSegments.getRadius() != 0) {
+                double area = Math.PI * Math.pow(closedLineSegments.getRadius(), 2);
+                result = StringFormatter.format("Area of a circle with a radius of %d is %.5f", closedLineSegments.getRadius(), area).getValue();
+            }
+            else{
+                result = "Invalid";
+            }
+        } else if (closedLineSegments.getType().equals(MathConstants.TYPE.rectangle.toString())) {
+            if(closedLineSegments.getWidth()!=0 && closedLineSegments.getHeight() != 0){
+                int area = closedLineSegments.getWidth() * closedLineSegments.getHeight();
+                result = StringFormatter.format("Area of a %dx%d rectangle is %d", closedLineSegments.getWidth(), closedLineSegments.getHeight(), area).getValue();
+            }
+            else {
+                result = "Invalid";
+            }
+        } else {
+            result = "Error! Incorrect input type. This endpoint only accepts circle / rectangle.";
+        }
         return result;
     }
 
