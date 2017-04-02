@@ -1,5 +1,12 @@
 package com.example.controller;
 
+import com.example.builder.PassengerBuilder;
+import com.example.builder.TicketBuilder;
+import com.example.model.Ticket;
+import com.example.model.Tickets;
+import com.example.util.ReadFixture;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -68,11 +79,30 @@ public class FlightControllerTest {
 
         MockHttpServletRequestBuilder threeTicketsRequest = post("/flights/tickets/total")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"tickets\":[{\"passenger\":{\"firstName\":\"Somename\",\"lastName\":\"Someothername\"},\"price\":200},{\"passenger\":{\"firstName\":\"NameB\",\"lastName\":\"NameC\"},\"price\":150},{\"passenger\":{\"firstName\":\"James\",\"lastName\":\"Bond\"},\"price\":150}]}");
+                .content(ReadFixture.readFixture("src/test/resources/request/Tickets.request", StandardCharsets.UTF_8));
 
         mockMvc.perform(threeTicketsRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.result", is(500)));
 
+        MockHttpServletRequestBuilder oneTicketRequest = post("/flights/tickets/total")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(getTicketsFromPojo());
+
+        mockMvc.perform(oneTicketRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result", is(800)));
+
+    }
+
+    private String getTicketsFromPojo(){
+        Gson gson = new GsonBuilder().create();
+        List<Ticket> ticketList = new ArrayList<>();
+        ticketList.add(TicketBuilder.aTicket().passenger(PassengerBuilder.aPassenger().firstName("Peyton").lastName("Manning").build())
+        .price(800).build());
+
+        Tickets tickets = new Tickets(ticketList);
+
+        return gson.toJson(tickets);
     }
 }

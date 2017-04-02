@@ -8,6 +8,7 @@ import com.example.model.Result;
 import com.example.model.Ticket;
 import com.example.model.Tickets;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ import java.util.TimeZone;
 @RequestMapping("/flights")
 public class FlightController {
 
-    private Gson gson = new Gson();
+    private Gson gson = new GsonBuilder().create();
 
     @GetMapping("/flight")
     public Flight getFlight() {
