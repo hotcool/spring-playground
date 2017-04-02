@@ -1,6 +1,7 @@
 buildscript {
 	ext {
 		springBootVersion = '1.5.2.RELEASE'
+		gsonVersion = '2.8.0'
 	}
 	repositories {
 		mavenCentral()
@@ -23,6 +24,8 @@ repositories {
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-web',
+			"com.google.code.gson:gson:$gsonVersion"
+	)
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
