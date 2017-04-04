@@ -53,7 +53,7 @@ public class FlightControllerTest {
     }
 
     @Test
-    public void testGetPrice()throws Exception{
+    public void testGetPrice() throws Exception {
         MockHttpServletRequestBuilder nullPriceRequest = post("/flights/tickets/total")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"tickets\":[{\"passenger\":{\"firstName\":\"Somename\",\"lastName\":\"Someothername\"}},{\"passenger\":{\"firstName\":\"NameB\",\"lastName\":\"NameC\"}]}");
@@ -95,11 +95,11 @@ public class FlightControllerTest {
 
     }
 
-    private String getTicketsFromPojo(){
+    private String getTicketsFromPojo() {
         Gson gson = new GsonBuilder().create();
         List<Ticket> ticketList = new ArrayList<>();
         ticketList.add(TicketBuilder.aTicket().passenger(PassengerBuilder.aPassenger().firstName("Peyton").lastName("Manning").build())
-        .price(800).build());
+                .price(800).build());
 
         Tickets tickets = new Tickets(ticketList);
 
