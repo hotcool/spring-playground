@@ -25,7 +25,9 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web',
+			'org.springframework.boot:spring-boot-starter-data-jpa',
 			"com.google.code.gson:gson:$gsonVersion"
 	)
+	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

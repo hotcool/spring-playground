@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.service.MathService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(AreaController.class)
+@WebMvcTest({AreaController.class, MathService.class})
 public class AreaControllerTest {
 
     @Autowired
@@ -51,7 +52,7 @@ public class AreaControllerTest {
     }
 
     @Test
-    public void testRec()throws Exception{
+    public void testRec() throws Exception {
         MockHttpServletRequestBuilder request = post("/math/area")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("type", "rectangle")

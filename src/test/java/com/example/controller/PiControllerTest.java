@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.controller.PiController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class PiControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testPiController() throws Exception{
+    public void testPiController() throws Exception {
         this.mockMvc.perform(get("/math/pi").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk())
                 .andExpect(content().string("3.141592653589793"));
