@@ -27,7 +27,7 @@ public class WordCountControllerTest {
     }
 
     @Test
-    public void testSingWord() throws Exception {
+    public void testSingleWord() throws Exception {
         MvcResult result = mockMvc.perform(post("/words/count").content("this_is_a_word_without_any_space.")).andExpect(status().isOk()).andReturn();
 
         String value = result.getResponse().getContentAsString();
