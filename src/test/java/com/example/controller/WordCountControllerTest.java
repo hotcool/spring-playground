@@ -10,12 +10,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest({WordCountConfig.class, WordCountController.class})
+//@TestPropertySource("../../../application-IOC-caseSensitive.properties")   This is awesome!
 public class WordCountControllerTest {
 
     @Autowired
@@ -45,7 +48,7 @@ public class WordCountControllerTest {
         String value = result.getResponse().getContentAsString();
 
         JsonObject object = new JsonObject();
-        object.addProperty("How", new Integer(1));
+        object.addProperty("how", new Integer(1));
         object.addProperty("now", new Integer(1));
         object.addProperty("cow", new Integer(1));
         object.addProperty("brown", new Integer(1));
@@ -53,4 +56,12 @@ public class WordCountControllerTest {
         assertEquals(object.toString(), value);
     }
 
+    @Test
+    public void testMultiWordsSkip() throws Exception {
+        mockMvc.perform(post("/words/count").content("to the moon, to the MOON"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.to", is(2)))
+                .andExpect(jsonPath("$.the").doesNotExist())
+                .andExpect(jsonPath("$.moon", is(2)));
+    }
 }

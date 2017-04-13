@@ -62,9 +62,24 @@ public class WordCountControllerMockTest {
                 .andExpect(jsonPath("$.to", is(2)))
                 .andExpect(jsonPath("$.the", is(2)))
                 .andExpect(jsonPath("$.moon", is(2)));
+    }
 
+    @Test
+    public void testMultiMockWithSkip() throws Exception{
 
+        Map<String, Integer> mockResult = new HashMap<String, Integer>() {
+            {
+                put("to", 2);
+                put("moon", 2);
+            }
+        };
 
+        when(mockCounter.count("to the moon, to the moon")).thenReturn(mockResult);
+
+        mockMvc.perform(post("/words/count").content("to the moon, to the moon"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.to", is(2)))
+                .andExpect(jsonPath("$.moon", is(2)));
     }
 
 }
