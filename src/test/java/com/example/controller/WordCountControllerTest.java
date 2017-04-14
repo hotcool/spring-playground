@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest({WordCountConfig.class, WordCountController.class})
-//@TestPropertySource("../../../application-IOC-caseSensitive.properties")   This is awesome!
 public class WordCountControllerTest {
 
     @Autowired
