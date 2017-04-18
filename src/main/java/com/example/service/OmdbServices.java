@@ -4,9 +4,6 @@ import com.example.config.OmdbConfig;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,7 +27,7 @@ public class OmdbServices {
         return restTemplate;
     }
 
-    public String getMovies(String query) throws Exception{
+    public String getMovies(String query) throws Exception {
         JsonNode jsonNode = objectMapper.readTree(restTemplate.getForObject(
                 String.format("%s/?s={query}", config.getUrl()),
                 String.class,
