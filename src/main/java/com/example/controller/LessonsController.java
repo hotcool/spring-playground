@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.model.Lesson;
+import com.example.entity.Lesson;
 import com.example.repositories.LessonRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
