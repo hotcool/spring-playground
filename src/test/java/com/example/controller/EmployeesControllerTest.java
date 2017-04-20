@@ -1,6 +1,9 @@
 package com.example.controller;
 
 import com.example.config.SecurityConfig;
+import com.example.entity.Employee;
+import com.example.repositories.EmployeeRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +11,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,6 +30,19 @@ public class EmployeesControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Before
+    @Transactional
+    @Rollback
+    public void setup(){
+        Employee employee = new Employee();
+        employee.setName("Employee");
+        employee.setSalary(24);
+        employeeRepository.save(employee);
+    }
 
     @Test
     public void testWithEmployee() throws Exception {
