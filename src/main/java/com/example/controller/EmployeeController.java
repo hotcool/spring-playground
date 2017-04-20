@@ -4,6 +4,8 @@ import com.example.entity.Employee;
 import com.example.model.Views;
 import com.example.repositories.EmployeeRepository;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +25,8 @@ public class EmployeeController {
     }
 
 
+    @GetMapping("/me")
+    public Employee getMe(@AuthenticationPrincipal Employee employee) {
+        return employee;
+    }
 }

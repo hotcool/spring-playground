@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.service.EmployeeDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,26 +9,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private EmployeeDetailsService employeeDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.authorizeRequests().mvcMatchers("/flights/**", "/math/**", "/movies/**", "/favorites/**").permitAll();
+        http.authorizeRequests().mvcMatchers("/admin/**").hasRole("MANAGER");
         http.httpBasic();
-        http.authorizeRequests().mvcMatchers("/flights/**", "/math/**", "/lessons/**", "/movies/**","/words/**").permitAll();
-        http.authorizeRequests().mvcMatchers(("/employees")).access("hasAnyRole('EMPLOYEE', 'MANAGER')");
-        http.authorizeRequests().mvcMatchers(("/admin/**")).access("hasRole('MANAGER')");
         http.authorizeRequests().anyRequest().authenticated();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("employee").password("my-employee-password").roles("EMPLOYEE")
-                .and()
-                .withUser("boss").password("my-boss-password").roles("MANAGER");
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // this line is the one that changes
+        auth.userDetailsService(employeeDetailsService);
     }
-
 }
