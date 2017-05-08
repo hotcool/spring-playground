@@ -15,7 +15,7 @@ public class OmdbController {
     }
 
     @GetMapping("/movies")
-    public String getMovies(@RequestParam("q") String q) throws Exception {
+    public String getMovies(@RequestParam(value = "q", required = false) String q) throws Exception {
         return services.getMovies(q);
     }
 

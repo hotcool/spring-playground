@@ -15,6 +15,9 @@ public class Movie extends ResourceSupport {
     private Long movieId;
     private String title;
 
+    public Movie() {
+    }
+
     public Movie(String title) {
         this.title = title;
     }
