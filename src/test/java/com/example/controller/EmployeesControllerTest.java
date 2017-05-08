@@ -35,9 +35,9 @@ public class EmployeesControllerTest {
     private EmployeeRepository employeeRepository;
 
     @Before
-    @Transactional
-    @Rollback
     public void setup(){
+        employeeRepository.deleteAll();
+
         Employee employee = new Employee();
         employee.setName("Employee");
         employee.setSalary(24);
