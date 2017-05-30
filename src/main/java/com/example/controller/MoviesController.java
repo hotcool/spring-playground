@@ -30,7 +30,7 @@ public class MoviesController {
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<Movie>> all() {
         Iterable<Movie> movieIterable = this.iMovieRepository.findAll();
         List<Movie> movies = new ArrayList<>();

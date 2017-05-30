@@ -68,7 +68,7 @@ public class MoviesControllerTest {
     public void testHateoasIndexRoute() throws Exception {
         when(this.repo.findAll()).thenReturn(movies);
 
-        MockHttpServletRequestBuilder request = get("/movies");
+        MockHttpServletRequestBuilder request = get("/movies/all");
 
         this.mvc.perform(request)
                 //.andDo(print())

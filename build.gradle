@@ -29,6 +29,7 @@ dependencies {
 			"com.google.code.gson:gson:$gsonVersion",
 			"org.projectlombok:lombok:1.16.16",
 			"org.springframework.boot:spring-boot-starter-hateoas",
+			"org.springframework.boot:spring-boot-starter-actuator",
 			'org.springframework.boot:spring-boot-starter-security'
 	)
 	runtime('mysql:mysql-connector-java')
